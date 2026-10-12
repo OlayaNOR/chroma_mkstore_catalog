@@ -77,6 +77,15 @@ La dueña de la tienda puede agregar, editar, eliminar y reordenar productos (co
 
 Si el token se pierde o se filtra, revócalo en esa misma pantalla y crea otro.
 
+### Registrar una venta (descontar stock)
+
+1. En WhatsApp, copia el mensaje de la orden que envió la clienta.
+2. En el panel: **Registrar venta** → pega el mensaje → **Revisar orden**.
+3. Verás cada producto con su stock actual → stock final. Puedes ajustar cantidades (0 = no descontar). Los productos o tonos que ya no existen se marcan y no se descuentan.
+4. **Descontar** publica el nuevo stock al instante.
+
+Cada venta queda en `data/ventas.json` (número de orden, fecha y productos, **sin datos personales**, porque el archivo es público) y una misma orden no se puede descontar dos veces. Si tienes otros cambios sin publicar en el panel, siguen pendientes: la venta solo descuenta sobre el catálogo publicado. Al registrar, el panel emite el evento `chroma:venta` con la orden completa (incluye datos de la clienta y totales).
+
 > El hosting debe desplegar desde la rama configurada en `admin.rama` (por defecto `main`). Si editas `products.js` a mano en otra rama, haz *pull* antes para no pisar los cambios hechos desde el panel.
 
 ## Flujo del cliente

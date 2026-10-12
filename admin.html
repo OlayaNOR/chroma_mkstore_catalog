@@ -53,7 +53,10 @@
         <h1>Actualizar catálogo</h1>
         <p class="muted" id="panel-summary"></p>
       </div>
-      <button class="btn btn--primary" id="add-product">+ Agregar producto</button>
+      <div class="panel__actions">
+        <button class="btn btn--ghost" id="register-sale">Registrar venta</button>
+        <button class="btn btn--primary" id="add-product">+ Agregar producto</button>
+      </div>
     </div>
 
     <div class="publish-bar" id="publish-bar" hidden>
@@ -70,6 +73,11 @@
     </label>
 
     <ul class="plist" id="plist"></ul>
+
+    <details class="sales">
+      <summary>Ventas registradas (<span id="sales-count">0</span>)</summary>
+      <ul class="sales__list" id="sales-list"></ul>
+    </details>
     <p class="muted small panel__foot">
       ¿Sin conexión con GitHub? <button class="btn--inline" id="download">Descargar products.js</button> y súbelo a mano.
     </p>
@@ -165,6 +173,42 @@
         <button type="submit" class="btn btn--primary" value="save">Guardar</button>
       </footer>
     </form>
+  </dialog>
+
+  <!-- Registrar venta -->
+  <dialog class="editor" id="sale" aria-labelledby="sale-title">
+    <div class="editor__form">
+      <header class="editor__head">
+        <h2 id="sale-title">Registrar venta</h2>
+        <button type="button" class="icon-btn" data-sale-cancel aria-label="Cerrar">✕</button>
+      </header>
+
+      <div class="editor__body">
+        <div id="sale-step-1">
+          <div class="field">
+            <label for="sale-text">Pega el mensaje de la orden que te llegó por WhatsApp</label>
+            <textarea id="sale-text" rows="12" placeholder="🛍️ ORDEN DE COMPRA · CHROMA&#10;N.º CHR-261012-A9C2&#10;…"></textarea>
+            <small class="error" id="sale-error" role="alert"></small>
+          </div>
+          <p class="muted small">En WhatsApp mantén presionado el mensaje → Copiar. Se lee el número de orden, los productos, tonos y cantidades.</p>
+        </div>
+
+        <div id="sale-step-2" hidden>
+          <p class="sale-summary" id="sale-summary"></p>
+          <p class="muted small">Se descontará este stock. Puedes cambiar la cantidad si el pedido cambió (0 = no descontar).</p>
+          <ul class="sale-lines" id="sale-lines"></ul>
+          <p class="muted small" id="sale-pending" hidden>Tus otros cambios sin publicar no se publican con esta venta; siguen pendientes.</p>
+        </div>
+      </div>
+
+      <footer class="editor__foot">
+        <button type="button" class="btn btn--link" id="sale-back" hidden>← Volver</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn--ghost" data-sale-cancel>Cancelar</button>
+        <button type="button" class="btn btn--primary" id="sale-review">Revisar orden</button>
+        <button type="button" class="btn btn--primary" id="sale-confirm" hidden>Descontar</button>
+      </footer>
+    </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -11,6 +11,7 @@
   const CFG = window.CHROMA_CONFIG || {};
   const ADMIN = Object.assign({ repo: "", rama: "main" }, CFG.admin);
   const PRODUCTS_PATH = "js/products.js";
+  const SALES_PATH = "data/ventas.json";
   const IMG_DIR = "assets/img/productos/";
   const TOKEN_KEY = "chroma-admin-token";
   const DRAFT_KEY = "chroma-admin-draft-v1";
@@ -62,7 +63,9 @@
     sha: null,        // sha del products.js cargado (para detectar cambios de otra persona)
     header: "",       // comentario de cabecera de products.js
     query: "",
-    editing: null     // { index, draft }
+    editing: null,    // { index, draft }
+    sales: [],        // ventas registradas (data/ventas.json), la más reciente primero
+    sale: null        // orden en revisión: { numero, fecha, cliente, totales, lines }
   };
 
   /* ---------------- GitHub ---------------- */
@@ -112,33 +115,48 @@
     restoreDraft();
   }
 
-  // Un solo commit con products.js + fotos nuevas (Git Data API)
-  async function publish() {
-    const r = `/repos/${ADMIN.repo}`;
-    const current = await gh(`${r}/contents/${PRODUCTS_PATH}?ref=${encodeURIComponent(ADMIN.rama)}`);
+  async function loadSales() {
+    try {
+      const file = await gh(`/repos/${ADMIN.repo}/contents/${SALES_PATH}?ref=${encodeURIComponent(ADMIN.rama)}`);
+      const data = JSON.parse(b64ToUtf8(file.content));
+      return Array.isArray(data.ventas) ? data.ventas : [];
+    } catch (e) {
+      if (e.status === 404) return []; // aún no hay ventas registradas
+      throw e;
+    }
+  }
+
+  async function ensureLatestCatalog() {
+    const current = await gh(`/repos/${ADMIN.repo}/contents/${PRODUCTS_PATH}?ref=${encodeURIComponent(ADMIN.rama)}`);
     if (current.sha !== state.sha) {
       throw new Error("El catálogo cambió desde otro lugar. Recarga la página para ver la última versión (tus cambios sin publicar se conservan).");
     }
+  }
 
-    const used = usedImagePaths();
-    const tree = [{ path: PRODUCTS_PATH, mode: "100644", type: "blob", content: serialize(state.products) }];
-    for (const [path, dataUrl] of Object.entries(state.images)) {
-      if (!used.has(path)) continue;
-      const blob = await gh(`${r}/git/blobs`, { method: "POST", body: JSON.stringify({ content: dataUrl.split(",")[1], encoding: "base64" }) });
-      tree.push({ path, mode: "100644", type: "blob", sha: blob.sha });
-    }
-
+  // Un solo commit con varios archivos (Git Data API). tree: [{ path, content } | { path, sha }]
+  async function commitFiles(files, message) {
+    const r = `/repos/${ADMIN.repo}`;
+    const tree = files.map((f) => Object.assign({ path: f.path, mode: "100644", type: "blob" }, f.sha ? { sha: f.sha } : { content: f.content }));
     const ref = await gh(`${r}/git/ref/heads/${encodeURIComponent(ADMIN.rama)}`);
     const head = await gh(`${r}/git/commits/${ref.object.sha}`);
     const newTree = await gh(`${r}/git/trees`, { method: "POST", body: JSON.stringify({ base_tree: head.tree.sha, tree }) });
-    const commit = await gh(`${r}/git/commits`, {
-      method: "POST",
-      body: JSON.stringify({ message: "Catálogo: " + changeSummary().join(", "), tree: newTree.sha, parents: [head.sha] })
-    });
+    const commit = await gh(`${r}/git/commits`, { method: "POST", body: JSON.stringify({ message, tree: newTree.sha, parents: [head.sha] }) });
     await gh(`${r}/git/refs/heads/${encodeURIComponent(ADMIN.rama)}`, { method: "PATCH", body: JSON.stringify({ sha: commit.sha }) });
-
     const updated = await gh(`${r}/contents/${PRODUCTS_PATH}?ref=${encodeURIComponent(ADMIN.rama)}`);
     state.sha = updated.sha;
+  }
+
+  // Publica products.js + fotos nuevas
+  async function publish() {
+    await ensureLatestCatalog();
+    const used = usedImagePaths();
+    const files = [{ path: PRODUCTS_PATH, content: serialize(state.products) }];
+    for (const [path, dataUrl] of Object.entries(state.images)) {
+      if (!used.has(path)) continue;
+      const blob = await gh(`/repos/${ADMIN.repo}/git/blobs`, { method: "POST", body: JSON.stringify({ content: dataUrl.split(",")[1], encoding: "base64" }) });
+      files.push({ path, sha: blob.sha });
+    }
+    await commitFiles(files, "Catálogo: " + changeSummary().join(", "));
     state.original = clone(state.products);
     Object.assign(state.published, state.images);
     state.images = {};
@@ -540,6 +558,194 @@
     if (dirty()) { saveDraft(); e.preventDefault(); e.returnValue = ""; }
   });
 
+  /* ---------------- Registrar venta ---------------- */
+  // Lee el mensaje que genera la tienda (ver orderMessage en app.js). Tolera los "*" de WhatsApp
+  // y el encabezado "[fecha] Nombre:" que se agrega al copiar mensajes del chat.
+  function parseOrder(text) {
+    const clean = String(text || "").replace(/\*/g, "").replace(/\r/g, "");
+    const lines = clean.split("\n");
+    const field = (label) => {
+      const m = clean.match(new RegExp(`^\\s*${label}:\\s*(.+)$`, "im"));
+      return m ? m[1].trim() : "";
+    };
+    const money = (label) => { const v = field(label); return /gratis/i.test(v) ? 0 : toInt(v) || 0; };
+    const numero = (clean.match(/CHR-\d{6}-[A-Z0-9]{4}/i) || [""])[0].toUpperCase();
+
+    const items = [];
+    lines.forEach((line, i) => {
+      const m = line.match(/^\s*\d+\.\s+(.+?)\s+[—–-]+\s+Tono:\s*(.+?)\s*$/i);
+      if (!m) return;
+      const q = (lines[i + 1] || "").match(/^\s*(\d+)\s*[×xX]/);
+      items.push({ producto: m[1].trim(), tono: m[2].trim(), cantidad: q ? +q[1] : 1 });
+    });
+
+    return {
+      numero,
+      fecha: field("Fecha"),
+      cliente: {
+        nombre: field("Nombre"), telefono: field("Celular"), ciudad: field("Ciudad"), direccion: field("Dirección"),
+        barrio: field("Barrio / indicaciones"), metodoPago: field("Método de pago"), notas: field("Notas")
+      },
+      subtotal: money("Subtotal"), envio: money("Envío"), total: money("Total"),
+      items
+    };
+  }
+
+  // Relaciona cada línea de la orden con el producto y tono del catálogo publicado
+  function matchItems(items) {
+    return items.map((it) => {
+      const pi = state.original.findIndex((p) => norm(p.nombre) === norm(it.producto));
+      const p = state.original[pi];
+      const ti = p ? p.tonos.findIndex((t) => norm(t.nombre) === norm(it.tono)) : -1;
+      return Object.assign({}, it, {
+        id: p ? p.id : null,
+        toneIdx: ti,
+        stock: ti >= 0 ? p.tonos[ti].stock : null,
+        problema: !p ? "Producto no encontrado en el catálogo" : ti < 0 ? "Tono no encontrado" : ""
+      });
+    });
+  }
+
+  const saleDialog = $("#sale");
+  const saleUnits = () => (state.sale ? state.sale.lines.filter((l) => !l.problema).reduce((a, l) => a + l.cantidad, 0) : 0);
+
+  function openSale() {
+    state.sale = null;
+    $("#sale-text").value = "";
+    $("#sale-error").textContent = "";
+    showSaleStep(1);
+    saleDialog.showModal();
+    $("#sale-text").focus();
+  }
+
+  function showSaleStep(n) {
+    $("#sale-step-1").hidden = n !== 1;
+    $("#sale-step-2").hidden = n !== 2;
+    $("#sale-review").hidden = n !== 1;
+    $("#sale-back").hidden = n !== 2;
+    $("#sale-confirm").hidden = n !== 2;
+  }
+
+  function reviewSale() {
+    const err = $("#sale-error");
+    const order = parseOrder($("#sale-text").value);
+    if (!order.numero) { err.textContent = "No encontramos el número de orden (CHR-…). Pega el mensaje completo de la orden."; return; }
+    if (!order.items.length) { err.textContent = "No encontramos productos en el mensaje. Pega el mensaje completo, desde “ORDEN DE COMPRA”."; return; }
+    const dup = state.sales.find((v) => v.numero === order.numero);
+    if (dup) { err.textContent = `La orden ${order.numero} ya fue registrada (${new Date(dup.registrada).toLocaleString(CFG.locale || "es-CO", { dateStyle: "short", timeStyle: "short" })}). No se descuenta dos veces.`; return; }
+    err.textContent = "";
+    state.sale = Object.assign(order, { lines: matchItems(order.items) });
+    renderSale();
+    showSaleStep(2);
+  }
+
+  function renderSale() {
+    const s = state.sale;
+    $("#sale-summary").innerHTML = `<strong>${esc(s.numero)}</strong>${s.cliente.nombre ? ` · ${esc(s.cliente.nombre)}` : ""}${s.total ? ` · ${fmt(s.total)}` : ""}`;
+    $("#sale-lines").innerHTML = s.lines.map((l, i) => {
+      const p = l.id && state.original.find((x) => x.id === l.id);
+      const hex = p && l.toneIdx >= 0 ? p.tonos[l.toneIdx].hex : "#ccc";
+      if (l.problema) {
+        return `<li class="sale-line is-bad"><span class="swatch" style="--c:#ddd"></span>
+          <span class="sale-line__name">${esc(l.producto)}<small>Tono: ${esc(l.tono)}</small><small class="warn">${esc(l.problema)}. No se descontará.</small></span></li>`;
+      }
+      const left = l.stock - l.cantidad;
+      return `<li class="sale-line"><span class="swatch" style="--c:${esc(hex)}"></span>
+        <span class="sale-line__name">${esc(l.producto)}<small>Tono: ${esc(l.tono)}</small>
+          ${left < 0 ? `<small class="warn">Solo había ${l.stock} en stock: quedará en 0.</small>` : ""}</span>
+        <label class="sale-line__qty"><span class="visually-hidden">Cantidad a descontar</span>
+          <input type="number" min="0" step="1" inputmode="numeric" value="${l.cantidad}" data-line="${i}"></label>
+        <span class="sale-line__stock">${l.stock} → <strong class="${left <= 0 ? "warn" : ""}">${Math.max(0, left)}</strong></span></li>`;
+    }).join("");
+    const units = saleUnits();
+    const btn = $("#sale-confirm");
+    btn.disabled = units === 0;
+    btn.textContent = units ? `Descontar ${units} unidad${units > 1 ? "es" : ""}` : "Nada que descontar";
+    $("#sale-pending").hidden = !dirty();
+  }
+
+  // Resta el stock en una lista de productos (no baja de 0)
+  function applySale(list, lines) {
+    lines.forEach((l) => {
+      if (l.problema || !l.cantidad) return;
+      const p = list.find((x) => x.id === l.id);
+      const t = p && p.tonos.find((x) => norm(x.nombre) === norm(l.tono));
+      if (t) t.stock = Math.max(0, t.stock - l.cantidad);
+    });
+    return list;
+  }
+
+  async function confirmSale() {
+    const s = state.sale;
+    const lines = s.lines.filter((l) => !l.problema && l.cantidad > 0);
+    await ensureLatestCatalog();
+    const sales = await loadSales(); // versión más reciente, por si se registró desde otro dispositivo
+    if (sales.some((v) => v.numero === s.numero)) throw new Error(`La orden ${s.numero} ya estaba registrada.`);
+
+    const record = {
+      numero: s.numero,
+      fechaOrden: s.fecha,
+      registrada: new Date().toISOString(),
+      items: lines.map((l) => ({ id: l.id, producto: l.producto, tono: l.tono, cantidad: l.cantidad }))
+    };
+    const nextSales = [record].concat(sales);
+    // Solo se publica el catálogo ya publicado con el stock descontado; los cambios pendientes siguen pendientes
+    const nextCatalog = applySale(clone(state.original), lines);
+    await commitFiles([
+      { path: PRODUCTS_PATH, content: serialize(nextCatalog) },
+      { path: SALES_PATH, content: JSON.stringify({ ventas: nextSales }, null, 2) + "\n" }
+    ], `Venta ${s.numero}: ${lines.map((l) => `${l.cantidad}× ${l.producto} (${l.tono})`).join(", ")}`);
+
+    state.original = nextCatalog;
+    applySale(state.products, lines);
+    state.sales = nextSales;
+    saveDraft();
+    document.dispatchEvent(new CustomEvent("chroma:venta", { detail: Object.assign({}, s, { items: record.items }) }));
+  }
+
+  function renderSales() {
+    const list = state.sales.slice(0, 20);
+    $("#sales-count").textContent = state.sales.length;
+    $("#sales-list").innerHTML = list.map((v) => `<li>
+        <span><strong>${esc(v.numero)}</strong>
+          <small class="muted">${new Date(v.registrada).toLocaleString(CFG.locale || "es-CO", { dateStyle: "medium", timeStyle: "short" })}</small></span>
+        <span class="small">${v.items.map((it) => `${it.cantidad}× ${esc(it.producto)} <span class="muted">(${esc(it.tono)})</span>`).join("<br>")}</span>
+      </li>`).join("") || `<li class="muted">Aún no hay ventas registradas.</li>`;
+  }
+
+  $("#register-sale").addEventListener("click", openSale);
+  $("#sale-review").addEventListener("click", reviewSale);
+  $("#sale-text").addEventListener("input", () => { $("#sale-error").textContent = ""; });
+  $("#sale-back").addEventListener("click", () => showSaleStep(1));
+  $$("[data-sale-cancel]").forEach((b) => b.addEventListener("click", () => saleDialog.close()));
+  saleDialog.addEventListener("click", (e) => { if (e.target === saleDialog) saleDialog.close(); });
+
+  $("#sale-lines").addEventListener("change", (e) => {
+    const i = e.target.dataset.line;
+    if (i == null) return;
+    state.sale.lines[+i].cantidad = Math.max(0, parseInt(e.target.value, 10) || 0);
+    renderSale();
+  });
+
+  $("#sale-confirm").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Descontando…";
+    try {
+      await confirmSale();
+      saleDialog.close();
+      renderList();
+      renderSales();
+      toast(`Venta ${state.sale.numero} registrada. Stock actualizado.`, 4500);
+    } catch (err) {
+      toast(err.status === 401 ? "Tu clave expiró. Vuelve a entrar." : "No se pudo registrar: " + err.message, 6000);
+      btn.disabled = false;
+      btn.textContent = label;
+      if (err.status === 401) { saleDialog.close(); logout(); }
+    }
+  });
+
   /* ---------------- Sesión ---------------- */
   function showPanel(on) {
     $("#login-view").hidden = on;
@@ -551,8 +757,10 @@
     state.token = token;
     await checkAccess();
     await loadCatalog();
+    state.sales = await loadSales();
     showPanel(true);
     renderList();
+    renderSales();
   }
 
   function logout() {
