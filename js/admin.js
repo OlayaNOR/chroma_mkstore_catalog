@@ -82,12 +82,15 @@
       }
     });
     if (!res.ok) {
-      const err = new Error((await res.json().catch(() => ({}))).message || res.statusText);
+      const msg = (await res.json().catch(() => ({}))).message || res.statusText;
+      const err = new Error(res.status === 403 && /not accessible/i.test(msg) ? NO_WRITE : msg);
       err.status = res.status;
       throw err;
     }
     return res.status === 204 ? null : res.json();
   }
+
+  const NO_WRITE = "Tu clave de acceso solo permite leer. En GitHub, edita el token y pon «Contents» en «Read and write».";
 
   async function checkAccess() {
     const repo = await gh(`/repos/${ADMIN.repo}`);
@@ -96,6 +99,9 @@
       e.status = 403;
       throw e;
     }
+    // El rol de la cuenta no dice nada del permiso del token: probamos una escritura inofensiva
+    // (un blob suelto, que no cambia ningún archivo ni crea commits).
+    await gh(`/repos/${ADMIN.repo}/git/blobs`, { method: "POST", body: JSON.stringify({ content: "", encoding: "utf-8" }) });
   }
 
   function parseProducts(src) {
@@ -665,6 +671,7 @@
     btn.disabled = units === 0;
     btn.textContent = units ? `Descontar ${units} unidad${units > 1 ? "es" : ""}` : "Nada que descontar";
     $("#sale-pending").hidden = !dirty();
+    $("#sale-confirm-error").textContent = "";
   }
 
   // Resta el stock en una lista de productos (no baja de 0)
@@ -843,7 +850,9 @@
       renderSales();
       toast(`Venta ${state.sale.numero} registrada. Stock actualizado${sheetsEnabled() ? " y enviando a Sheets" : ""}.`, 4500);
     } catch (err) {
-      toast(err.status === 401 ? "Tu clave expiró. Vuelve a entrar." : "No se pudo registrar: " + err.message, 6000);
+      const msg = err.status === 401 ? "Tu clave expiró. Vuelve a entrar." : "No se pudo registrar la venta: " + err.message;
+      $("#sale-confirm-error").textContent = msg; // queda visible en el diálogo
+      toast(msg, 6000);
       btn.disabled = false;
       btn.textContent = label;
       if (err.status === 401) { saleDialog.close(); logout(); }

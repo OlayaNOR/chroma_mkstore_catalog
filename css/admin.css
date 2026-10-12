@@ -161,6 +161,7 @@
 .sale-line__stock { font-size: .86rem; color: var(--muted); text-align: right; white-space: nowrap; }
 .sale-line__stock strong { color: var(--ink); font-size: 1rem; }
 .sale-line__stock strong.warn { color: var(--danger); }
+.sale-error:not(:empty) { font-size: .88rem; font-weight: 600; background: #FFF5F6; border: 1px solid #F3C9D1; border-radius: var(--radius-sm); padding: 10px 12px; margin: 0 0 10px; }
 #sale-text { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; }
 
 @media (max-width: 640px) {
