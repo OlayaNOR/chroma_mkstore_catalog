@@ -1,0 +1,7 @@
+# Configuración local (no publicar)
+.env
+.env.*
+.claude/
+
+# Sistema
+.DS_Store
