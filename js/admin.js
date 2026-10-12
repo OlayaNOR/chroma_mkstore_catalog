@@ -15,7 +15,7 @@
   const IMG_DIR = "assets/img/productos/";
   const TOKEN_KEY = "chroma-admin-token";
   const DRAFT_KEY = "chroma-admin-draft-v1";
-  const SHEETS_KEY = "chroma-admin-sheets-key";     // clave secreta del webhook de n8n (solo en este dispositivo)
+  const SHEETS_KEY = "chroma-admin-sheets-key";     // clave secreta del Apps Script de Sheets (solo en este dispositivo)
   const SHEETS_QUEUE = "chroma-admin-sheets-queue"; // pedidos pendientes de enviar a Google Sheets
   const API = "https://api.github.com";
 
@@ -709,9 +709,9 @@
     if (sheetsEnabled()) { queueSet(queueGet().concat([payload])); flushSheets(); }
   }
 
-  /* ---------------- Google Sheets (vía n8n) ---------------- */
+  /* ---------------- Google Sheets (vía Apps Script) ---------------- */
   // Pedido completo para la hoja: una línea por producto. Incluye datos de la clienta,
-  // por eso NUNCA se guarda en el repo, solo se envía al webhook privado.
+  // por eso NUNCA se guarda en el repo, solo se envía al Apps Script privado de la hoja.
   function sheetPayload(s, registrada) {
     const items = s.lines.filter((l) => l.cantidad > 0).map((l, i) => ({
       idLinea: `${s.numero}-${i + 1}`,
@@ -739,19 +739,21 @@
   const queueSet = (q) => { if (q.length) store.set("localStorage", SHEETS_QUEUE, JSON.stringify(q)); else try { localStorage.removeItem(SHEETS_QUEUE); } catch (e) { /* noop */ } };
   let sheetsState = { sending: false, error: "" };
 
+  // Apps Script no acepta peticiones con cabeceras propias (CORS), así que se envía como texto
+  // plano y la clave va dentro del cuerpo. Siempre responde 200: el resultado viene en { ok, error }.
   async function sendToSheets(payload) {
     const res = await fetch(ADMIN.sheetsWebhook, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Chroma-Key": store.get("localStorage", SHEETS_KEY) || "",
-        "ngrok-skip-browser-warning": "1"
-      },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(Object.assign({ clave: store.get("localStorage", SHEETS_KEY) || "" }, payload))
     });
-    if (!res.ok) {
-      const err = new Error(res.status === 401 || res.status === 403 ? "La clave de Sheets es incorrecta." : `n8n respondió ${res.status}.`);
-      err.status = res.status;
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data || !data.ok) {
+      const err = new Error(
+        data && data.error === "clave" ? "La clave de Sheets es incorrecta."
+          : data && data.mensaje ? "Google Sheets: " + data.mensaje
+          : "Google Sheets no respondió bien (" + res.status + ")."
+      );
+      err.status = res.status || 500;
       throw err;
     }
   }
@@ -770,7 +772,7 @@
         queue = queue.slice(1);
         queueSet(queue);
       } catch (err) {
-        sheetsState.error = err.status ? err.message : "No hay conexión con n8n (¿el computador está encendido?).";
+        sheetsState.error = err.status ? err.message : "Sin conexión a internet; se reintentará.";
         break;
       }
     }
@@ -797,7 +799,7 @@
   $("#sheets-retry").addEventListener("click", flushSheets);
   $("#sheets-key").addEventListener("click", () => {
     const current = store.get("localStorage", SHEETS_KEY) || "";
-    const key = prompt("Clave secreta de Google Sheets (la misma configurada en n8n):", current);
+    const key = prompt("Clave secreta de Google Sheets (la misma que pusiste en el Apps Script):", current);
     if (key == null) return;
     if (key.trim()) store.set("localStorage", SHEETS_KEY, key.trim());
     else try { localStorage.removeItem(SHEETS_KEY); } catch (e) { /* noop */ }

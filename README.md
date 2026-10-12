@@ -14,7 +14,7 @@ chroma/
 ├── js/app.js           Lógica (catálogo, carrito, checkout, orden)
 ├── js/admin.js         Lógica del panel (publica en GitHub)
 ├── data/ventas.json    Registro de ventas (lo escribe el panel)
-├── n8n/                Flujo de n8n para guardar pedidos en Google Sheets
+├── apps-script/        Script de Google Sheets que guarda los pedidos
 └── assets/img/         Logo, favicon y (opcional) fotos de productos
 ```
 
@@ -86,7 +86,7 @@ Si el token se pierde o se filtra, revócalo en esa misma pantalla y crea otro.
 3. Verás cada producto con su stock actual → stock final. Puedes ajustar cantidades (0 = no descontar). Los productos o tonos que ya no existen se marcan y no se descuentan.
 4. **Descontar** publica el nuevo stock al instante.
 
-Cada venta queda en `data/ventas.json` (número de orden, fecha y productos, **sin datos personales**, porque el archivo es público) y una misma orden no se puede descontar dos veces. Si tienes otros cambios sin publicar en el panel, siguen pendientes: la venta solo descuenta sobre el catálogo publicado. Si `admin.sheetsWebhook` está configurado, el pedido completo (clienta, dirección, productos y totales) se envía a **Google Sheets vía n8n**, una fila por producto. Si n8n no responde, queda en cola en el dispositivo y se reenvía después. Instalación paso a paso: [`n8n/README.md`](n8n/README.md).
+Cada venta queda en `data/ventas.json` (número de orden, fecha y productos, **sin datos personales**, porque el archivo es público) y una misma orden no se puede descontar dos veces. Si tienes otros cambios sin publicar en el panel, siguen pendientes: la venta solo descuenta sobre el catálogo publicado. Si `admin.sheetsWebhook` está configurado, el pedido completo (clienta, dirección, productos y totales) se guarda en **Google Sheets** (Apps Script en la hoja de la dueña), una fila por producto. Si no hay conexión, queda en cola en el dispositivo y se reenvía después. Instalación paso a paso: [`apps-script/README.md`](apps-script/README.md).
 
 > El hosting debe desplegar desde la rama configurada en `admin.rama` (por defecto `main`). Si editas `products.js` a mano en otra rama, haz *pull* antes para no pisar los cambios hechos desde el panel.
 

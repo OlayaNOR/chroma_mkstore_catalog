@@ -34,7 +34,8 @@ window.CHROMA_CONFIG = {
   admin: {
     repo: "OlayaNOR/chroma_mkstore_catalog",
     rama: "main",
-    // URL pública del webhook de n8n que guarda los pedidos en Google Sheets (ver n8n/README.md).
+    // URL de la aplicación web de Apps Script que guarda los pedidos en Google Sheets
+    // (termina en /exec; ver apps-script/README.md).
     // Déjalo vacío ("") para desactivar el envío.
     sheetsWebhook: ""
   }
