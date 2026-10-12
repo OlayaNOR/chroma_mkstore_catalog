@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chroma · Administrar catálogo</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#AF6AAE">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="Ir a la tienda">
+        <img src="assets/img/logo.png" alt="" width="44" height="44">
+        <span class="brand__name">Chroma</span>
+      </a>
+      <span class="admin-tag">Administración</span>
+      <button class="btn btn--link" id="logout" hidden>Cerrar sesión</button>
+    </div>
+  </header>
+
+  <!-- Acceso -->
+  <main class="container login" id="login-view">
+    <div class="login__card">
+      <h1>Panel de la tienda</h1>
+      <p class="muted">Ingresa tu clave de acceso para administrar el catálogo.</p>
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="token">Clave de acceso (token de GitHub)</label>
+          <input id="token" type="password" autocomplete="current-password" required placeholder="github_pat_…">
+          <small class="error" id="login-error"></small>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="remember" checked>
+          Recordar en este dispositivo
+        </label>
+        <button class="btn btn--primary btn--block" type="submit" id="login-btn">Entrar</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Panel -->
+  <main class="container panel" id="panel-view" hidden>
+    <div class="panel__head">
+      <div>
+        <h1>Actualizar catálogo</h1>
+        <p class="muted" id="panel-summary"></p>
+      </div>
+      <button class="btn btn--primary" id="add-product">+ Agregar producto</button>
+    </div>
+
+    <div class="publish-bar" id="publish-bar" hidden>
+      <p><strong id="pending-count"></strong> La tienda no cambia hasta que publiques.</p>
+      <div class="publish-bar__actions">
+        <button class="btn btn--link" id="discard">Descartar</button>
+        <button class="btn btn--primary" id="publish">Publicar cambios</button>
+      </div>
+    </div>
+
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="admin-search" placeholder="Buscar producto" aria-label="Buscar producto">
+    </label>
+
+    <ul class="plist" id="plist"></ul>
+    <p class="muted small panel__foot">
+      ¿Sin conexión con GitHub? <button class="btn--inline" id="download">Descargar products.js</button> y súbelo a mano.
+    </p>
+  </main>
+
+  <!-- Editor de producto -->
+  <dialog class="editor" id="editor" aria-labelledby="editor-title">
+    <form id="product-form" method="dialog" novalidate>
+      <header class="editor__head">
+        <h2 id="editor-title">Nuevo producto</h2>
+        <button type="button" class="icon-btn" data-cancel aria-label="Cerrar">✕</button>
+      </header>
+
+      <div class="editor__body">
+        <div class="photo-pick">
+          <div class="photo-pick__preview" id="photo-preview"></div>
+          <div>
+            <label class="btn btn--ghost">
+              <input type="file" accept="image/*" id="photo-input" hidden>
+              Subir foto
+            </label>
+            <button type="button" class="btn btn--link" id="photo-remove" hidden>Quitar foto</button>
+            <p class="muted small">Opcional. Ideal cuadrada. Si no hay foto se usa una ilustración con el color del tono.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="p-nombre">Nombre *</label>
+          <input id="p-nombre" required maxlength="80">
+          <small class="error"></small>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="p-categoria">Categoría *</label>
+            <input id="p-categoria" list="cat-list" required placeholder="Labios, Ojos…">
+            <datalist id="cat-list"></datalist>
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="p-tipo">Ilustración</label>
+            <select id="p-tipo">
+              <option value="labial">Labial</option>
+              <option value="gloss">Gloss / tinta</option>
+              <option value="base">Base</option>
+              <option value="rubor">Rubor</option>
+              <option value="polvo">Polvo</option>
+              <option value="sombras">Sombras</option>
+              <option value="mascara">Máscara</option>
+              <option value="delineador">Delineador</option>
+              <option value="esmalte">Esmalte</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="p-precio">Precio *</label>
+            <input id="p-precio" inputmode="numeric" required placeholder="32000">
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="p-precio-antes">Precio antes</label>
+            <input id="p-precio-antes" inputmode="numeric" placeholder="Opcional (descuento)">
+            <small class="error"></small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="p-etiqueta">Etiqueta</label>
+          <input id="p-etiqueta" list="tag-list" placeholder="Opcional: Nuevo, Más vendido…" maxlength="24">
+          <datalist id="tag-list"><option value="Nuevo"><option value="Más vendido"><option value="Oferta"></datalist>
+        </div>
+
+        <div class="field">
+          <label for="p-descripcion">Descripción</label>
+          <textarea id="p-descripcion" rows="3" maxlength="400"></textarea>
+        </div>
+
+        <fieldset class="field tones">
+          <legend>Tonos y stock *</legend>
+          <div class="tones__head" aria-hidden="true"><span>Color</span><span>Nombre del tono</span><span>Stock</span><span></span></div>
+          <ul class="tones__list" id="tones"></ul>
+          <small class="error" id="tones-error"></small>
+          <button type="button" class="btn btn--ghost" id="add-tone">+ Agregar tono</button>
+        </fieldset>
+      </div>
+
+      <footer class="editor__foot">
+        <button type="button" class="btn btn--link danger" id="delete-product">Eliminar producto</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn--ghost" data-cancel>Cancelar</button>
+        <button type="submit" class="btn btn--primary" value="save">Guardar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

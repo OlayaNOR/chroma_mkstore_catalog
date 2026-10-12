@@ -6,11 +6,13 @@ Web estática (HTML + CSS + JavaScript puro, sin frameworks ni build). Carga rá
 
 ```
 chroma/
-├── index.html          Página única
+├── index.html          Tienda
+├── admin.html          🔒 Panel para actualizar el catálogo
 ├── css/styles.css      Estilos (paleta basada en el logo #AF6AAE), responsive
 ├── js/config.js        ⚙️  Datos de la tienda: WhatsApp, envío, métodos de pago
 ├── js/products.js      🛍️  Inventario: productos, precios, tonos y stock
 ├── js/app.js           Lógica (catálogo, carrito, checkout, orden)
+├── js/admin.js         Lógica del panel (publica en GitHub)
 └── assets/img/         Logo, favicon y (opcional) fotos de productos
 ```
 
@@ -59,6 +61,23 @@ Copia un bloque existente y cambia sus datos:
 - **Stock:** con `stock: 0` el tono aparece tachado como "Agotado". El carrito no deja pedir más unidades de las disponibles.
 - **Tipos de ilustración:** `labial`, `gloss`, `base`, `rubor`, `polvo`, `sombras`, `mascara`, `delineador`, `esmalte`.
 - **Fotos:** recomendadas cuadradas (1:1), ~800×800 px, en `.jpg` o `.webp`.
+
+## Panel de administración (`admin.html`)
+
+La dueña de la tienda puede agregar, editar, eliminar y reordenar productos (con fotos, tonos y stock) desde `tusitio.com/admin.html`, sin tocar código. La página no está enlazada desde la tienda y no se indexa en Google.
+
+**Cómo funciona:** al pulsar **Publicar cambios**, el panel guarda `js/products.js` y las fotos nuevas directamente en el repositorio de GitHub (`admin.repo` / `admin.rama` en `config.js`), en un solo commit. El hosting detecta el commit y actualiza la tienda en 1–2 minutos. Los cambios sin publicar se guardan en el navegador por si se cierra la página.
+
+**Acceso (solo la dueña):** se entra con un *token* personal de GitHub. Sin él no se puede ver ni modificar el catálogo. Para crearlo:
+
+1. En GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
+2. *Repository access*: **Only select repositories** → `chroma_mkstore_catalog`.
+3. *Permissions → Repository permissions → Contents*: **Read and write**.
+4. Elige una fecha de vencimiento, genera el token y pégalo en el panel (marca "Recordar en este dispositivo" solo en el celular o computador de la dueña).
+
+Si el token se pierde o se filtra, revócalo en esa misma pantalla y crea otro.
+
+> El hosting debe desplegar desde la rama configurada en `admin.rama` (por defecto `main`). Si editas `products.js` a mano en otra rama, haz *pull* antes para no pisar los cambios hechos desde el panel.
 
 ## Flujo del cliente
 
