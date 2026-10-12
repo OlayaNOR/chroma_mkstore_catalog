@@ -37,6 +37,6 @@ window.CHROMA_CONFIG = {
     // URL de la aplicación web de Apps Script que guarda los pedidos en Google Sheets
     // (termina en /exec; ver apps-script/README.md).
     // Déjalo vacío ("") para desactivar el envío.
-    sheetsWebhook: ""
+    sheetsWebhook: "https://script.google.com/macros/s/AKfycbyLcDzYVZdgUTtvIPvcnIfXG--pWwani2YPY2RbILVkbGslL9HSKbHF2eZpBdXMBcjx9A/exec"
   }
 };
