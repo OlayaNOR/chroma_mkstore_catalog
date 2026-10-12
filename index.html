@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=2">
 </head>
 <body>
   <a class="skip" href="#catalogo">Ir al catálogo</a>
@@ -228,8 +228,10 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/config.js"></script>
-  <script src="js/products.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Al cambiar app.js, config.js o styles.css, sube el número de ?v= para que los navegadores no usen la versión vieja.
+       products.js se descarga siempre fresco para mostrar el stock real. -->
+  <script src="js/config.js?v=2"></script>
+  <script>document.write('<script src="js/products.js?t=' + Date.now() + '"><\/script>');</script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>
