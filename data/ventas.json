@@ -1,6 +1,31 @@
 {
   "ventas": [
     {
+      "numero": "CHR-261012-JWNP",
+      "fechaOrden": "12/10/26, 4:16 p.m.",
+      "registrada": "2026-10-12T21:17:36.965Z",
+      "items": [
+        {
+          "id": "gloss-cristal",
+          "producto": "Gloss Cristal",
+          "tono": "Transparente",
+          "cantidad": 1
+        },
+        {
+          "id": "base-skin-perfect",
+          "producto": "Base Skin Perfect",
+          "tono": "110 Porcelana",
+          "cantidad": 1
+        },
+        {
+          "id": "polvo-sellador",
+          "producto": "Polvo Sellador Matte",
+          "tono": "Medio",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
       "numero": "CHR-261012-KBOU",
       "fechaOrden": "12/10/26, 4:09 p.m.",
       "registrada": "2026-10-12T21:14:53.401Z",

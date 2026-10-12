@@ -41,7 +41,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Nuevo",
     descripcion: "Brillo jugoso con efecto volumen. Fórmula no pegajosa con aroma a vainilla.",
     tonos: [
-      { nombre: "Transparente", hex: "#F3D9E2", stock: 15 },
+      { nombre: "Transparente", hex: "#F3D9E2", stock: 14 },
       { nombre: "Rosa Chicle", hex: "#E37BA6", stock: 10 },
       { nombre: "Durazno", hex: "#F0A07E", stock: 7 },
       { nombre: "Lila Glow", hex: "#B887C9", stock: 4 }
@@ -70,7 +70,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Más vendido",
     descripcion: "Cobertura media construible, acabado satinado y 24 h de duración. Con ácido hialurónico.",
     tonos: [
-      { nombre: "110 Porcelana", hex: "#F4D9C6", stock: 4 },
+      { nombre: "110 Porcelana", hex: "#F4D9C6", stock: 3 },
       { nombre: "120 Marfil", hex: "#EDCBB1", stock: 7 },
       { nombre: "220 Beige", hex: "#D9AE8C", stock: 10 },
       { nombre: "250 Arena", hex: "#C99A73", stock: 9 },
@@ -101,7 +101,7 @@ window.CHROMA_PRODUCTS = [
     descripcion: "Polvo translúcido que controla el brillo y sella el maquillaje sin dejar efecto blanco.",
     tonos: [
       { nombre: "Translúcido", hex: "#F1E3D6", stock: 14 },
-      { nombre: "Medio", hex: "#D6AE8B", stock: 8 },
+      { nombre: "Medio", hex: "#D6AE8B", stock: 7 },
       { nombre: "Profundo", hex: "#9A6A48", stock: 4 }
     ]
   },
