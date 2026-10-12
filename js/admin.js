@@ -15,6 +15,8 @@
   const IMG_DIR = "assets/img/productos/";
   const TOKEN_KEY = "chroma-admin-token";
   const DRAFT_KEY = "chroma-admin-draft-v1";
+  const SHEETS_KEY = "chroma-admin-sheets-key";     // clave secreta del webhook de n8n (solo en este dispositivo)
+  const SHEETS_QUEUE = "chroma-admin-sheets-queue"; // pedidos pendientes de enviar a Google Sheets
   const API = "https://api.github.com";
 
   /* ---------------- Utilidades ---------------- */
@@ -575,8 +577,9 @@
     lines.forEach((line, i) => {
       const m = line.match(/^\s*\d+\.\s+(.+?)\s+[—–-]+\s+Tono:\s*(.+?)\s*$/i);
       if (!m) return;
-      const q = (lines[i + 1] || "").match(/^\s*(\d+)\s*[×xX]/);
-      items.push({ producto: m[1].trim(), tono: m[2].trim(), cantidad: q ? +q[1] : 1 });
+      // "   2 × $ 32.000 = $ 64.000"
+      const q = (lines[i + 1] || "").match(/^\s*(\d+)\s*[×xX]\s*([^=]*)/);
+      items.push({ producto: m[1].trim(), tono: m[2].trim(), cantidad: q ? +q[1] : 1, precio: (q && toInt(q[2])) || 0 });
     });
 
     return {
@@ -700,8 +703,107 @@
     applySale(state.products, lines);
     state.sales = nextSales;
     saveDraft();
-    document.dispatchEvent(new CustomEvent("chroma:venta", { detail: Object.assign({}, s, { items: record.items }) }));
+
+    const payload = sheetPayload(s, record.registrada);
+    document.dispatchEvent(new CustomEvent("chroma:venta", { detail: payload }));
+    if (sheetsEnabled()) { queueSet(queueGet().concat([payload])); flushSheets(); }
   }
+
+  /* ---------------- Google Sheets (vía n8n) ---------------- */
+  // Pedido completo para la hoja: una línea por producto. Incluye datos de la clienta,
+  // por eso NUNCA se guarda en el repo, solo se envía al webhook privado.
+  function sheetPayload(s, registrada) {
+    const items = s.lines.filter((l) => l.cantidad > 0).map((l, i) => ({
+      idLinea: `${s.numero}-${i + 1}`,
+      producto: l.producto,
+      tono: l.tono,
+      cantidad: l.cantidad,
+      precio: l.precio,
+      total: l.precio * l.cantidad,
+      stockDescontado: !l.problema
+    }));
+    return {
+      numero: s.numero,
+      fechaOrden: s.fecha,
+      registrada,
+      cliente: s.cliente,
+      subtotal: s.subtotal,
+      envio: s.envio,
+      total: s.total,
+      items
+    };
+  }
+
+  const sheetsEnabled = () => !!ADMIN.sheetsWebhook;
+  const queueGet = () => { try { return JSON.parse(store.get("localStorage", SHEETS_QUEUE) || "[]"); } catch (e) { return []; } };
+  const queueSet = (q) => { if (q.length) store.set("localStorage", SHEETS_QUEUE, JSON.stringify(q)); else try { localStorage.removeItem(SHEETS_QUEUE); } catch (e) { /* noop */ } };
+  let sheetsState = { sending: false, error: "" };
+
+  async function sendToSheets(payload) {
+    const res = await fetch(ADMIN.sheetsWebhook, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Chroma-Key": store.get("localStorage", SHEETS_KEY) || "",
+        "ngrok-skip-browser-warning": "1"
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const err = new Error(res.status === 401 || res.status === 403 ? "La clave de Sheets es incorrecta." : `n8n respondió ${res.status}.`);
+      err.status = res.status;
+      throw err;
+    }
+  }
+
+  // Envía en orden los pedidos pendientes; los que fallan quedan para el siguiente intento
+  async function flushSheets() {
+    if (!sheetsEnabled() || sheetsState.sending) return;
+    let queue = queueGet();
+    if (!queue.length) { sheetsState.error = ""; renderSheets(); return; }
+    if (!store.get("localStorage", SHEETS_KEY)) { sheetsState.error = "Falta configurar la clave de Sheets."; renderSheets(); return; }
+    sheetsState = { sending: true, error: "" };
+    renderSheets();
+    while (queue.length) {
+      try {
+        await sendToSheets(queue[0]);
+        queue = queue.slice(1);
+        queueSet(queue);
+      } catch (err) {
+        sheetsState.error = err.status ? err.message : "No hay conexión con n8n (¿el computador está encendido?).";
+        break;
+      }
+    }
+    sheetsState.sending = false;
+    renderSheets();
+  }
+
+  function renderSheets() {
+    const box = $("#sheets-status");
+    if (!sheetsEnabled()) { box.hidden = true; return; }
+    box.hidden = false;
+    const pending = queueGet().length;
+    const hasKey = !!store.get("localStorage", SHEETS_KEY);
+    let text;
+    if (sheetsState.sending) text = "Enviando pedidos a Google Sheets…";
+    else if (!hasKey) text = "Google Sheets: falta configurar la clave en este dispositivo.";
+    else if (pending) text = `${pending} pedido${pending > 1 ? "s" : ""} pendiente${pending > 1 ? "s" : ""} de enviar a Google Sheets. ${sheetsState.error}`;
+    else text = "Google Sheets: todos los pedidos están enviados ✓";
+    $("#sheets-text").textContent = text;
+    box.classList.toggle("is-warn", !sheetsState.sending && (!hasKey || pending > 0));
+    $("#sheets-retry").hidden = !pending || sheetsState.sending || !hasKey;
+  }
+
+  $("#sheets-retry").addEventListener("click", flushSheets);
+  $("#sheets-key").addEventListener("click", () => {
+    const current = store.get("localStorage", SHEETS_KEY) || "";
+    const key = prompt("Clave secreta de Google Sheets (la misma configurada en n8n):", current);
+    if (key == null) return;
+    if (key.trim()) store.set("localStorage", SHEETS_KEY, key.trim());
+    else try { localStorage.removeItem(SHEETS_KEY); } catch (e) { /* noop */ }
+    renderSheets();
+    flushSheets();
+  });
 
   function renderSales() {
     const list = state.sales.slice(0, 20);
@@ -737,7 +839,7 @@
       saleDialog.close();
       renderList();
       renderSales();
-      toast(`Venta ${state.sale.numero} registrada. Stock actualizado.`, 4500);
+      toast(`Venta ${state.sale.numero} registrada. Stock actualizado${sheetsEnabled() ? " y enviando a Sheets" : ""}.`, 4500);
     } catch (err) {
       toast(err.status === 401 ? "Tu clave expiró. Vuelve a entrar." : "No se pudo registrar: " + err.message, 6000);
       btn.disabled = false;
@@ -761,6 +863,8 @@
     showPanel(true);
     renderList();
     renderSales();
+    renderSheets();
+    flushSheets();
   }
 
   function logout() {

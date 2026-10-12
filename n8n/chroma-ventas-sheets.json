@@ -1,0 +1,79 @@
+{
+  "name": "Chroma · Ventas a Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chroma-venta",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://olayanor.github.io"
+        }
+      },
+      "id": "5f0c1a52-6a43-4b8e-9d0f-0c6f3c1a0001",
+      "name": "Webhook venta",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "chroma-venta"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Convierte el pedido del panel en una fila por producto\nconst o = $input.first().json.body || {};\nif (!o.numero || !Array.isArray(o.items) || !o.items.length) {\n  throw new Error('Pedido inválido: falta número u productos');\n}\nconst c = o.cliente || {};\nconst fecha = (iso) => iso ? new Date(iso).toLocaleString('es-CO', { timeZone: 'America/Bogota', dateStyle: 'short', timeStyle: 'short' }) : '';\n\nreturn o.items.map((it) => ({\n  json: {\n    'ID línea': it.idLinea,\n    'Registrada': fecha(o.registrada),\n    'N.º orden': o.numero,\n    'Fecha orden': o.fechaOrden || '',\n    'Cliente': c.nombre || '',\n    'Celular': c.telefono || '',\n    'Ciudad': c.ciudad || '',\n    'Dirección': c.direccion || '',\n    'Barrio': c.barrio || '',\n    'Método de pago': c.metodoPago || '',\n    'Notas': c.notas || '',\n    'Producto': it.producto,\n    'Tono': it.tono,\n    'Cantidad': it.cantidad,\n    'Precio unitario': it.precio,\n    'Total línea': it.total,\n    'Subtotal pedido': o.subtotal,\n    'Envío': o.envio,\n    'Total pedido': o.total,\n    'Stock descontado': it.stockDescontado ? 'Sí' : 'No'\n  }\n}));"
+      },
+      "id": "5f0c1a52-6a43-4b8e-9d0f-0c6f3c1a0002",
+      "name": "Una fila por producto",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "PEGA_AQUI_LA_URL_DE_LA_HOJA"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pedidos"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": ["ID línea"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "5f0c1a52-6a43-4b8e-9d0f-0c6f3c1a0003",
+      "name": "Guardar en Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, filas: $input.all().length } }}",
+        "options": {}
+      },
+      "id": "5f0c1a52-6a43-4b8e-9d0f-0c6f3c1a0004",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 0],
+      "executeOnce": true
+    }
+  ],
+  "connections": {
+    "Webhook venta": { "main": [[{ "node": "Una fila por producto", "type": "main", "index": 0 }]] },
+    "Una fila por producto": { "main": [[{ "node": "Guardar en Google Sheets", "type": "main", "index": 0 }]] },
+    "Guardar en Google Sheets": { "main": [[{ "node": "Responder OK", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

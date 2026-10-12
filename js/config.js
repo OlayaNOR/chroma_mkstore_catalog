@@ -9,7 +9,7 @@ window.CHROMA_CONFIG = {
   // Número de WhatsApp que recibe las órdenes (código de país + número, sin "+" ni espacios).
   // Ejemplo Colombia: "573001234567". Si lo dejas vacío, el botón de WhatsApp se oculta
   // y el cliente solo podrá copiar la orden.
-  whatsapp: "573113267531",
+  whatsapp: "573218883174",
 
   // Usuario de Instagram (sin @). Se usa en el pie de página y como alternativa para enviar la orden.
   instagram: "chroma_mkstore",
@@ -33,6 +33,9 @@ window.CHROMA_CONFIG = {
   // repositorio de GitHub y rama; el hosting debe desplegar desde esa misma rama.
   admin: {
     repo: "OlayaNOR/chroma_mkstore_catalog",
-    rama: "main"
+    rama: "main",
+    // URL pública del webhook de n8n que guarda los pedidos en Google Sheets (ver n8n/README.md).
+    // Déjalo vacío ("") para desactivar el envío.
+    sheetsWebhook: ""
   }
 };

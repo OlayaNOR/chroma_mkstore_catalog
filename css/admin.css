@@ -126,7 +126,16 @@
 .tones .btn--ghost { min-height: 40px; padding: 8px 16px; font-size: .9rem; }
 
 /* ---------- Ventas ---------- */
-.sales { margin-top: 24px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+.sheets-status {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap;
+  margin-top: 24px; padding: 8px 10px 8px 18px; border-radius: var(--radius); background: #E3F4EA; color: #1F5F3B; font-size: .88rem;
+}
+.sheets-status.is-warn { background: #FFF2DC; color: #7A4800; }
+.sheets-status p { margin: 0; flex: 1 1 240px; }
+.sheets-status > span { display: flex; gap: 4px; align-items: center; }
+.sheets-status .btn { min-height: 38px; padding: 6px 14px; font-size: .85rem; color: inherit; }
+.sheets-status .btn--ghost { background: #fff; }
+.sales { margin-top: 12px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
 .sales summary { padding: 14px 18px; font-weight: 600; cursor: pointer; }
 .sales__list { list-style: none; margin: 0; padding: 0 18px 8px; }
 .sales__list li { display: grid; grid-template-columns: minmax(150px, auto) 1fr; gap: 4px 16px; padding: 10px 0; border-top: 1px solid var(--line); }
