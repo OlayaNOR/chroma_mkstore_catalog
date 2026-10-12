@@ -27,7 +27,7 @@ window.CHROMA_PRODUCTS = [
     tonos: [
       { nombre: "Rosa Nude", hex: "#C98A8E", stock: 12 },
       { nombre: "Malva", hex: "#9E5A78", stock: 8 },
-      { nombre: "Rojo Clásico", hex: "#B3122E", stock: 5 },
+      { nombre: "Rojo Clásico", hex: "#B3122E", stock: 2 },
       { nombre: "Ciruela", hex: "#5E1F3D", stock: 0 },
       { nombre: "Terracota", hex: "#A94F3B", stock: 6 }
     ]

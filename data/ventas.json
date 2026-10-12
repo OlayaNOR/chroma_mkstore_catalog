@@ -1,3 +1,17 @@
 {
-  "ventas": []
+  "ventas": [
+    {
+      "numero": "CHR-261012-KBOU",
+      "fechaOrden": "12/10/26, 4:09 p.m.",
+      "registrada": "2026-10-12T21:14:53.401Z",
+      "items": [
+        {
+          "id": "labial-mate-velvet",
+          "producto": "Labial Mate Velvet",
+          "tono": "Rojo Clásico",
+          "cantidad": 3
+        }
+      ]
+    }
+  ]
 }
