@@ -175,6 +175,21 @@
           <small class="error" id="tones-error"></small>
           <button type="button" class="btn btn--ghost" id="add-tone">+ Agregar tono</button>
         </fieldset>
+
+        <div class="field">
+          <span class="field__label">Foto de tonos en piel</span>
+          <div class="photo-pick photo-pick--wide">
+            <div class="photo-pick__preview" id="swatch-preview"></div>
+            <div>
+              <label class="btn btn--ghost">
+                <input type="file" accept="image/*" id="swatch-input" hidden>
+                Subir foto de tonos
+              </label>
+              <button type="button" class="btn btn--link" id="swatch-remove" hidden>Quitar</button>
+              <p class="muted small">Opcional. Una foto con todos los tonos aplicados (ej. en el brazo) para compararlos. Se muestra fija en el detalle del producto y no cambia al elegir tono.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <footer class="editor__foot">

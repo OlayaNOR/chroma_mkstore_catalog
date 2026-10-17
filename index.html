@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=3">
 </head>
 <body>
   <a class="skip" href="#catalogo">Ir al catálogo</a>
@@ -132,6 +132,11 @@
           <p class="label">Tono: <strong id="pm-tone-name"></strong> <span class="stock" id="pm-stock"></span></p>
           <div class="swatches swatches--lg" id="pm-swatches" role="radiogroup" aria-label="Elige un tono"></div>
         </div>
+
+        <figure class="pm__muestras" id="pm-muestras" hidden>
+          <a id="pm-muestras-link" target="_blank" rel="noopener"><img id="pm-muestras-img" alt="" loading="lazy" decoding="async"></a>
+          <figcaption>Así se ven los tonos en la piel · toca la foto para ampliarla</figcaption>
+        </figure>
 
         <div class="pm__actions">
           <div class="qty" aria-label="Cantidad">
@@ -242,6 +247,6 @@
        products.js se descarga siempre fresco para mostrar el stock real. -->
   <script src="js/config.js?v=3"></script>
   <script>document.write('<script src="js/products.js?t=' + Date.now() + '"><\/script>');</script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>

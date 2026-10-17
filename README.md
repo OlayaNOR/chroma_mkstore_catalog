@@ -52,6 +52,7 @@ Copia un bloque existente y cambia sus datos:
   etiqueta: "Nuevo",             // opcional
   descripcion: "…",
   imagen: "assets/img/productos/labial-satin.jpg", // opcional
+  muestras: "assets/img/productos/labial-satin-tonos.jpg", // opcional: foto fija con todos los tonos aplicados
   tonos: [
     { nombre: "Nude", hex: "#C98A8E", stock: 10 },
     { nombre: "Rojo", hex: "#B3122E", stock: 0, imagen: "assets/img/productos/labial-rojo.jpg" }
@@ -63,6 +64,7 @@ Copia un bloque existente y cambia sus datos:
 - **Stock:** con `stock: 0` el tono aparece tachado como "Agotado". El carrito no deja pedir más unidades de las disponibles.
 - **Tipos de ilustración:** `labial`, `gloss`, `base`, `rubor`, `polvo`, `sombras`, `mascara`, `delineador`, `esmalte`.
 - **Fotos:** recomendadas cuadradas (1:1), ~800×800 px, en `.jpg` o `.webp`.
+- **Foto de tonos en piel (`muestras`):** opcional. Una foto con todos los tonos aplicados (ej. en el brazo). Se muestra fija en el detalle del producto, debajo de los círculos de color, y se puede ampliar. En el panel: *Foto de tonos en piel*.
 
 ## Panel de administración (`admin.html`)
 

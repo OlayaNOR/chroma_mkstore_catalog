@@ -335,6 +335,14 @@
     $("#pm-price").innerHTML = priceHTML(p);
     $("#pm-desc").textContent = p.descripcion || "";
     $("#pm-swatches").innerHTML = swatchesHTML(p, state.modal.tone);
+    // Foto fija con todos los tonos aplicados (opcional)
+    const muestras = $("#pm-muestras");
+    muestras.hidden = !p.muestras;
+    if (p.muestras) {
+      $("#pm-muestras-link").href = p.muestras;
+      $("#pm-muestras-img").src = p.muestras;
+      $("#pm-muestras-img").alt = `Tonos de ${p.nombre} aplicados en la piel`;
+    }
     renderModal();
     openLayer(modal);
     modal.scrollTop = 0;

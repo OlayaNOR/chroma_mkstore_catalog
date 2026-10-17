@@ -172,7 +172,7 @@
   }
 
   /* ---------------- Serializar products.js ---------------- */
-  const KEY_ORDER = ["id", "nombre", "categoria", "tipo", "precio", "precioAntes", "etiqueta", "descripcion", "imagen", "tonos"];
+  const KEY_ORDER = ["id", "nombre", "categoria", "tipo", "precio", "precioAntes", "etiqueta", "descripcion", "imagen", "muestras", "tonos"];
   const lit = (v) => JSON.stringify(v);
 
   function serialize(list) {
@@ -210,6 +210,7 @@
     const set = new Set();
     state.products.forEach((p) => {
       if (p.imagen) set.add(p.imagen);
+      if (p.muestras) set.add(p.muestras);
       p.tonos.forEach((t) => t.imagen && set.add(t.imagen));
     });
     return set;
@@ -235,14 +236,14 @@
   }
 
   /* ---------------- Fotos ---------------- */
-  // Redimensiona a máx. 1000 px y comprime a JPG para que la tienda cargue rápido
-  function readImage(file) {
+  // Redimensiona (máx. 1000 px por defecto) y comprime a JPG para que la tienda cargue rápido
+  function readImage(file, max = 1000) {
     return new Promise((resolve, reject) => {
       if (!file || !file.type.startsWith("image/")) { reject(new Error("El archivo no es una imagen.")); return; }
       const url = URL.createObjectURL(file);
       const img = new Image();
       img.onload = () => {
-        const max = 1000, scale = Math.min(1, max / Math.max(img.width, img.height));
+        const scale = Math.min(1, max / Math.max(img.width, img.height));
         const c = document.createElement("canvas");
         c.width = Math.round(img.width * scale);
         c.height = Math.round(img.height * scale);
@@ -352,6 +353,10 @@
       ? `<img src="${esc(imgSrc(p.imagen))}" alt="Foto del producto">`
       : `<span class="plist__dot" style="--c:${esc(hex)}"></span>`;
     $("#photo-remove").hidden = !p.imagen;
+    $("#swatch-preview").innerHTML = p.muestras
+      ? `<img src="${esc(imgSrc(p.muestras))}" alt="Foto de tonos en piel">`
+      : `<span class="muted small">Sin foto</span>`;
+    $("#swatch-remove").hidden = !p.muestras;
   }
 
   function renderTones() {
@@ -485,6 +490,26 @@
 
   $("#photo-remove").addEventListener("click", () => {
     delete state.editing.draft.imagen;
+    renderPhoto();
+  });
+
+  // Foto fija de los tonos aplicados en la piel: más resolución para que se lean los nombres
+  $("#swatch-input").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    const p = readForm();
+    try {
+      const data = await readImage(file, 1600);
+      const path = newImagePath(`${slug(p.nombre || "producto")}-tonos-piel`);
+      state.images[path] = data;
+      p.muestras = path;
+      renderPhoto();
+    } catch (err) { toast(err.message); }
+  });
+
+  $("#swatch-remove").addEventListener("click", () => {
+    delete state.editing.draft.muestras;
     renderPhoto();
   });
 
