@@ -9,7 +9,7 @@ window.CHROMA_CONFIG = {
   // Número de WhatsApp que recibe las órdenes (código de país + número, sin "+" ni espacios).
   // Ejemplo Colombia: "573001234567". Si lo dejas vacío, el botón de WhatsApp se oculta
   // y el cliente solo podrá copiar la orden.
-  whatsapp: "573218883174",
+  whatsapp: "573113267531",
 
   // Usuario de Instagram (sin @). Se usa en el pie de página y como alternativa para enviar la orden.
   instagram: "chroma_mkstore",
