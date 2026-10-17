@@ -1,6 +1,6 @@
 # Chroma · Catálogo y toma de pedidos
 
-Web estática (HTML + CSS + JavaScript puro, sin frameworks ni build). Carga rápido y se puede subir a cualquier hosting estático: Netlify, Vercel, GitHub Pages, Cloudflare Pages, Hostinger, etc.
+Web estática (HTML + CSS + JavaScript puro, sin frameworks ni build). Publicada con GitHub Pages en **https://chromamkstore.com** (panel: `https://chromamkstore.com/admin.html`). El dominio está en Cloudflare (DNS en modo *DNS only*, apuntando a GitHub Pages). Carga rápido y se puede subir a cualquier hosting estático: Netlify, Vercel, GitHub Pages, Cloudflare Pages, Hostinger, etc.
 
 ## Estructura
 
