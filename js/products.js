@@ -17,6 +17,19 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "fijador-de-maquillaje-naba",
+    nombre: "Fijador de Maquillaje NABA",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 26000,
+    etiqueta: "Nuevo",
+    descripcion: "Excelente fijador",
+    muestras: "assets/img/productos/fijador-de-maquillaje-naba-tonos-piel-mvcxgrr4.jpg",
+    tonos: [
+      { nombre: "N/A", hex: "#c888b7", stock: 3, imagen: "assets/img/productos/fijador-de-maquillaje-naba-n-a-mvcxgj31.jpg" }
+    ]
+  },
+  {
     id: "pesta-prosa",
     nombre: "pesta prosa",
     categoria: "Ojos",
