@@ -1,6 +1,19 @@
 {
   "ventas": [
     {
+      "numero": "CHR-261017-4010",
+      "fechaOrden": "17/10/26, 4:50 p.m.",
+      "registrada": "2026-10-17T21:51:37.501Z",
+      "items": [
+        {
+          "id": "fijador-de-maquillaje-naba",
+          "producto": "Fijador de Maquillaje NABA",
+          "tono": "N/A",
+          "cantidad": 3
+        }
+      ]
+    },
+    {
       "numero": "CHR-261017-3YDW",
       "fechaOrden": "17/10/26, 4:33 p.m.",
       "registrada": "2026-10-17T21:36:22.600Z",

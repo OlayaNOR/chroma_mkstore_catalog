@@ -26,7 +26,7 @@ window.CHROMA_PRODUCTS = [
     descripcion: "Excelente fijador",
     muestras: "assets/img/productos/fijador-de-maquillaje-naba-tonos-piel-mvcxgrr4.jpg",
     tonos: [
-      { nombre: "N/A", hex: "#c888b7", stock: 3, imagen: "assets/img/productos/fijador-de-maquillaje-naba-n-a-mvcxgj31.jpg" }
+      { nombre: "N/A", hex: "#c888b7", stock: 0, imagen: "assets/img/productos/fijador-de-maquillaje-naba-n-a-mvcxgj31.jpg" }
     ]
   },
   {
