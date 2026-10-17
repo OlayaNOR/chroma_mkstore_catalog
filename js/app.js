@@ -281,7 +281,11 @@
     const list = filtered();
     grid.innerHTML = list.map(cardHTML).join("");
     $("#empty").hidden = list.length > 0;
-    $("#result-count").textContent = `${list.length} producto${list.length === 1 ? "" : "s"}`;
+    // Catálogo vacío (p. ej. mientras se cargan los productos) vs. búsqueda sin resultados
+    $("#empty").textContent = PRODUCTS.length
+      ? "No encontramos productos con esa búsqueda."
+      : "Estamos preparando el catálogo. ¡Muy pronto verás aquí nuestros productos!";
+    $("#result-count").textContent = PRODUCTS.length ? `${list.length} producto${list.length === 1 ? "" : "s"}` : "";
   }
 
   function refreshCard(id) {
