@@ -27,7 +27,7 @@ window.CHROMA_PRODUCTS = [
     descripcion: "Pestas muy coolch para verse mas bella",
     muestras: "assets/img/productos/pesta-prosa-tonos-piel-mvcwgeon.jpg",
     tonos: [
-      { nombre: "Cafe", hex: "#aa7942", stock: 2, imagen: "assets/img/productos/pesta-prosa-cafe-mvcweroc.jpg" },
+      { nombre: "Cafe", hex: "#aa7942", stock: 1, imagen: "assets/img/productos/pesta-prosa-cafe-mvcweroc.jpg" },
       { nombre: "Morado", hex: "#942192", stock: 4, imagen: "assets/img/productos/pesta-prosa-morado-mvcwl89s.jpg" },
       { nombre: "Gris Claro", hex: "#c0c0c0", stock: 1, imagen: "assets/img/productos/pesta-prosa-gris-claro-mvcwlhjy.jpg" }
     ]

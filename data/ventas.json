@@ -1,6 +1,19 @@
 {
   "ventas": [
     {
+      "numero": "CHR-261017-3YDW",
+      "fechaOrden": "17/10/26, 4:33 p.m.",
+      "registrada": "2026-10-17T21:36:22.600Z",
+      "items": [
+        {
+          "id": "pesta-prosa",
+          "producto": "pesta prosa",
+          "tono": "Cafe",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
       "numero": "CHR-261012-JWNP",
       "fechaOrden": "12/10/26, 4:16 p.m.",
       "registrada": "2026-10-12T21:17:36.965Z",
