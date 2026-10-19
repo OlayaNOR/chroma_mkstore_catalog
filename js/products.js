@@ -43,10 +43,9 @@ window.CHROMA_PRODUCTS = [
     precio: 50000,
     etiqueta: "Nuevo",
     descripcion: "Su innovadora fórmula combina una textura cremosa de alta adherencia con un polvo compacto de acabado suave, logrando un color uniforme, de larga duración y fácil de construir. Gracias a su textura sedosa y acabado Soft Focus, se funde perfectamente con la piel para un resultado natural y definido.",
-    imagen: "assets/img/productos/producto-mvfh6kse.jpg",
+    imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-mvfimkgv.jpg",
     muestras: "assets/img/productos/bronzer-allure-crema-y-compacto-tonos-piel-mvfhan3q.jpg",
     tonos: [
-      { nombre: "GOBI", hex: "#9a5c46", stock: 0, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-gobi-mvfh8jpw.jpg" },
       { nombre: "SANDSTORM", hex: "#9d695b", stock: 1, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-sandstorm-mvfh8v72.jpg" },
       { nombre: "THAR", hex: "#5c3429", stock: 0, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-thar-mvfh96dn.jpg" }
     ]
