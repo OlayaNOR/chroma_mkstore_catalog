@@ -36,6 +36,52 @@ window.CHROMA_PRODUCTS = [
     ]
   },
   {
+    id: "pestanina-prosa",
+    nombre: "PESTAÑINA PROSA",
+    categoria: "Ojos",
+    tipo: "labial",
+    precio: 23500,
+    etiqueta: "Nuevo",
+    descripcion: "Tus pestañas lucirán naturales, mucho más definidas y extra largas.",
+    imagen: "assets/img/productos/pestanina-prosa-mvk2hcee.jpg",
+    muestras: "assets/img/productos/pestanina-prosa-tonos-piel-mvk2h6ph.jpg",
+    tonos: [
+      { nombre: "Profesional Silicon Café", hex: "#6d3b3e", stock: 1, imagen: "assets/img/productos/pestanina-prosa-profesional-silicon-cafe-mvk2g701.jpg" },
+      { nombre: "Maxi-Volumen Morada", hex: "#843ba5", stock: 1, imagen: "assets/img/productos/pestanina-prosa-maxi-volumen-morada-mvk2gkyi.jpg" },
+      { nombre: "Micro Fibras Gris Clara", hex: "#9e96a2", stock: 1, imagen: "assets/img/productos/pestanina-prosa-micro-fibras-gris-clara-mvk2gws7.jpg" }
+    ]
+  },
+  {
+    id: "got2b-glued-schwarzkopf",
+    nombre: "got2b Glued  Schwarzkopf",
+    categoria: "Cejas",
+    tipo: "labial",
+    precio: 36000,
+    etiqueta: "Nuevo",
+    descripcion: "got2b Glued de Schwarzkopf es un producto 2 en 1 diseñado para fijar tanto las cejas como los bordes del cabello (baby hairs), logrando un efecto tipo laminado de larga duración.",
+    imagen: "assets/img/productos/producto-mvk2k1hb.jpg",
+    muestras: "assets/img/productos/got2b-glued-schwarzkopf-tonos-piel-mvk2mquf.jpg",
+    tonos: [
+      { nombre: "Amarillo", hex: "#ffd500", stock: 1 }
+    ]
+  },
+  {
+    id: "corrector-pure-cover-tamano-regular-6-gr",
+    nombre: "Corrector Pure Cover - Tamaño Regular - 6 Gr",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 32500,
+    etiqueta: "Nuevo",
+    descripcion: "Corrector profesional multiusos de textura cremosa, ligera y de excelente cobertura.",
+    imagen: "assets/img/productos/producto-mvk22h6a.jpg",
+    muestras: "assets/img/productos/corrector-pure-cover-tamano-regular-6-gr-tonos-piel-mvk24u8l.jpg",
+    tonos: [
+      { nombre: "00. Winter", hex: "#e1bba6", stock: 1 },
+      { nombre: "01. Snow", hex: "#e2b595", stock: 1 },
+      { nombre: "05. Caramel", hex: "#a0663c", stock: 1 }
+    ]
+  },
+  {
     id: "bronzer-allure-crema-y-compacto",
     nombre: "BRONZER ALLURE CREMA Y COMPACTO",
     categoria: "Rostro",
