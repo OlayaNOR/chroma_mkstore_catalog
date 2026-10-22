@@ -17,6 +17,48 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "lys-beauty-no-limits-cream-bronzer-and-contour-stick",
+    nombre: "LYS Beauty  No Limits Cream Bronzer and Contour Stick",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 120000,
+    etiqueta: "Nuevo",
+    descripcion: "El LYS Beauty No Limits Cream Bronzer and Contour Stick es un",
+    imagen: "assets/img/productos/producto-mvk3u8ss.jpg",
+    muestras: "assets/img/productos/lys-beauty-no-limits-cream-bronzer-and-contour-stick-tonos-piel-mvk3v3eh.jpg",
+    tonos: [
+      { nombre: "Harmony", hex: "#77422b", stock: 1, imagen: "assets/img/productos/lys-beauty-no-limits-cream-bronzer-and-contour-stick-harmony-mvk3v0hl.jpg" }
+    ]
+  },
+  {
+    id: "rhode-peptide-lip-tint-nourishing-glaze",
+    nombre: "rhode  Peptide Lip Tint Nourishing Glaze",
+    categoria: "Labios",
+    tipo: "labial",
+    precio: 110000,
+    etiqueta: "Nuevo",
+    descripcion: "Tratamiento restaurador y humectante que repara los labios secos mientras ofrece un acabado gloss de alto brillo, sin sensación pegajosa",
+    imagen: "assets/img/productos/producto-mvk3qwox.jpg",
+    muestras: "assets/img/productos/rhode-peptide-lip-tint-nourishing-glaze-tonos-piel-mvk3sges.jpg",
+    tonos: [
+      { nombre: "raspberry jelly", hex: "#992950", stock: 1, imagen: "assets/img/productos/rhode-peptide-lip-tint-nourishing-glaze-tono-1-mvk3rxrk.jpg" }
+    ]
+  },
+  {
+    id: "rhode-pocket-blush-buildable-hydrating-cream-blush",
+    nombre: "rhode  Pocket Blush Buildable Hydrating Cream Blush",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 120000,
+    etiqueta: "Nuevo",
+    descripcion: "El Rhode Pocket Blush es un rubor en crema multifuncional en formato stick creado por Hailey Bieber, diseñado para dar a las mejillas y a los labios un toque de color satinado, difuminado y natural",
+    imagen: "assets/img/productos/producto-mvk3onze.jpg",
+    muestras: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-tonos-piel-mvk3ptaw.jpg",
+    tonos: [
+      { nombre: "Sprinkle", hex: "#c85252", stock: 1, imagen: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-sprinkle-mvk3pk6c.jpg" }
+    ]
+  },
+  {
     id: "huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m",
     nombre: "HUDA BEAUTY  Easy Bake Blurring Loose Baking & Setting Powder MINI",
     categoria: "Rostro",
