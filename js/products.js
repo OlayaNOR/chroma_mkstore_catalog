@@ -81,7 +81,7 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/producto-mvk3onze.jpg",
     muestras: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-tonos-piel-mvk3ptaw.jpg",
     tonos: [
-      { nombre: "Sprinkle", hex: "#c85252", stock: 1, imagen: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-sprinkle-mvk4686f.jpg" }
+      { nombre: "Sprinkle", hex: "#c85252", stock: 1, imagen: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-sprinkle-mvk3pk6c.jpg" }
     ]
   },
   {
@@ -232,7 +232,7 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-mvfimkgv.jpg",
     muestras: "assets/img/productos/bronzer-allure-crema-y-compacto-tonos-piel-mvfhan3q.jpg",
     tonos: [
-      { nombre: "SANDSTORM", hex: "#9d695b", stock: 1, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-sandstorm-mvfh8v72.jpg" },
+      { nombre: "SANDSTORM", hex: "#9d695b", stock: 1, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-sandstorm-mvk4afzu.jpg" },
       { nombre: "THAR", hex: "#5c3429", stock: 0, imagen: "assets/img/productos/bronzer-allure-crema-y-compacto-thar-mvfh96dn.jpg" }
     ]
   }
