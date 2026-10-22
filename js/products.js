@@ -17,6 +17,36 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m",
+    nombre: "HUDA BEAUTY  Easy Bake Blurring Loose Baking & Setting Powder MINI",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 120000,
+    etiqueta: "Nuevo",
+    descripcion: "Los polvos Huda Beauty Easy Bake (sueltos o compactos) son polvos fijadores y de maquillaje diseñados para proporcionar un acabado mate con efecto aerógrafo (airbrush), difuminar poros y líneas de expresión, y controlar el brillo durante horas",
+    imagen: "assets/img/productos/producto-mvk3jhsl.jpg",
+    muestras: "assets/img/productos/producto-tonos-piel-mvk3jdmw.jpg",
+    tonos: [
+      { nombre: "Pound Cake", hex: "#f0d6b8", stock: 1, imagen: "assets/img/productos/huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m-pound-cake-mvk3ktr6.jpg" },
+      { nombre: "UBE Birthday Cake", hex: "#e49ec0", stock: 1, imagen: "assets/img/productos/huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m-ube-birthday-cake-mvk3ldgh.jpg" }
+    ]
+  },
+  {
+    id: "soft-pinch-liquid-blush-rare-beauty-by-selena-gomez",
+    nombre: "Soft Pinch Liquid Blush Rare Beauty by Selena Gomez",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 130000,
+    etiqueta: "Nuevo",
+    descripcion: "Rubor líquido ligero, de larga duración y alta pigmentación que se funde en la piel para dar un aspecto natural y saludable",
+    imagen: "assets/img/productos/producto-mvk3fdvx.jpg",
+    muestras: "assets/img/productos/producto-tonos-piel-mvk3fgb5.jpg",
+    tonos: [
+      { nombre: "Happy", hex: "#f582a1", stock: 2, imagen: "assets/img/productos/soft-pinch-liquid-blush-rare-beauty-by-selena-gomez-happy-mvk3hlf6.jpg" },
+      { nombre: "Bliss", hex: "#f39a94", stock: 1, imagen: "assets/img/productos/soft-pinch-liquid-blush-rare-beauty-by-selena-gomez-bliss-mvk3hx0a.jpg" }
+    ]
+  },
+  {
     id: "rubor-major-headlines-double-patrick-ta-original",
     nombre: "Rubor Major Headlines Double- Patrick Ta Original",
     categoria: "Rostro",
