@@ -17,6 +17,19 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "makeup-by-mario-f4-dual-ended-foundation-and-face-brush",
+    nombre: "MAKEUP BY MARIO  F4 Dual-Ended Foundation and Face Brush",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 180000,
+    etiqueta: "Nuevo",
+    descripcion: "Brocha de doble punta diseñada para aplicar, difuminar y modular bases de maquillaje y otros productos para el rostro",
+    imagen: "assets/img/productos/producto-mvk3wfw0.jpg",
+    tonos: [
+      { nombre: "F4", hex: "#ffffff", stock: 1, imagen: "assets/img/productos/makeup-by-mario-f4-dual-ended-foundation-and-face-brush-f4-mvk3wwa2.jpg" }
+    ]
+  },
+  {
     id: "lys-beauty-no-limits-cream-bronzer-and-contour-stick",
     nombre: "LYS Beauty  No Limits Cream Bronzer and Contour Stick",
     categoria: "Rostro",
