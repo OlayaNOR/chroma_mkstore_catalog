@@ -17,6 +17,33 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "fijador-de-maquillaje-naba",
+    nombre: "Fijador de Maquillaje NABA",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 25000,
+    etiqueta: "Nuevo",
+    descripcion: "Fijador de maquillaje que mantiene tu look impecable todo el día, mientras cuida tu piel. Su fórmula ligera prolonga la duración del maquillaje sin sensación pesada y deja un acabado fresco, natural y ligeramente luminoso.",
+    imagen: "assets/img/productos/fijador-de-maquillaje-naba-mvk2yj61.jpg",
+    muestras: "assets/img/productos/fijador-de-maquillaje-naba-tonos-piel-mvk2z04q.jpg",
+    tonos: [
+      { nombre: "30 ML", hex: "#C98A8E", stock: 1, imagen: "assets/img/productos/fijador-de-maquillaje-naba-30-ml-mvk2yend.jpg" }
+    ]
+  },
+  {
+    id: "brocha-mini-iconi-k-x-juanito",
+    nombre: "Brocha Mini Iconi-K x Juanito",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 20000,
+    etiqueta: "Nuevo",
+    descripcion: "Iconi-k Brush ¡Colaboración entre Ani-K Makeup y Juanito! Esta brocha versátil está diseñada para ofrecerte la máxima precisión y comodidad en tu rutina de maquillaje.\n\nTe permite aplicar productos en crema, líquidos y en polvo con facilidad y precisión. Las cerdas aseguran una distribución uniforme del producto mientras sin absorber mucho producto, lo que te permite lograr el acabado perfecto y e",
+    imagen: "assets/img/productos/brocha-mini-iconi-k-x-juanito-mvk2pq6x.jpg",
+    tonos: [
+      { nombre: "MINI", hex: "#C98A8E", stock: 1, imagen: "assets/img/productos/brocha-mini-iconi-k-x-juanito-tono-1-mvk2qk9t.jpg" }
+    ]
+  },
+  {
     id: "corrector-liquido-1st-scene-travel-size",
     nombre: "CORRECTOR LÍQUIDO 1ST SCENE TRAVEL SIZE",
     categoria: "Ojos",
