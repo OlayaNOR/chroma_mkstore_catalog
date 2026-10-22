@@ -17,6 +17,19 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "sephora-collection-retractable-eyebrow-pencil-waterproof",
+    nombre: "SEPHORA COLLECTION  Retractable EyeBrow Pencil - Waterproof",
+    categoria: "Cejas",
+    tipo: "labial",
+    precio: 80000,
+    etiqueta: "Nuevo",
+    imagen: "assets/img/productos/producto-mvk40bqp.jpg",
+    muestras: "assets/img/productos/sephora-collection-retractable-eyebrow-pencil-waterproof-tonos-piel-mvk411p2.jpg",
+    tonos: [
+      { nombre: "Medium Brow", hex: "#977d7f", stock: 1, imagen: "assets/img/productos/sephora-collection-retractable-eyebrow-pencil-waterproof-medium-brow-mvk40wx9.jpg" }
+    ]
+  },
+  {
     id: "makeup-by-mario-f4-dual-ended-foundation-and-face-brush",
     nombre: "MAKEUP BY MARIO  F4 Dual-Ended Foundation and Face Brush",
     categoria: "Rostro",
