@@ -81,7 +81,7 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/producto-mvk3onze.jpg",
     muestras: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-tonos-piel-mvk3ptaw.jpg",
     tonos: [
-      { nombre: "Sprinkle", hex: "#c85252", stock: 1, imagen: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-sprinkle-mvk3pk6c.jpg" }
+      { nombre: "Sprinkle", hex: "#c85252", stock: 1, imagen: "assets/img/productos/rhode-pocket-blush-buildable-hydrating-cream-blush-sprinkle-mvk4686f.jpg" }
     ]
   },
   {
