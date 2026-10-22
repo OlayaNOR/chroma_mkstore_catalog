@@ -17,6 +17,21 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "rubor-major-headlines-double-patrick-ta-original",
+    nombre: "Rubor Major Headlines Double- Patrick Ta Original",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 140000,
+    etiqueta: "Nuevo",
+    descripcion: "El Major Headlines Double-Take Crème & Powder Blush Duo de Patrick Ta es un rubor compacto viral que combina dos fórmulas complementarias (en polvo y en crema) para dar color, dimensión y un brillo radiante",
+    imagen: "assets/img/productos/rubor-major-headlines-double-patrick-ta-original-mvk3cr66.jpg",
+    muestras: "assets/img/productos/rubor-major-headlines-double-patrick-ta-original-tonos-piel-mvk3bers.jpg",
+    tonos: [
+      { nombre: "She´s Blushing", hex: "#b96155", stock: 1, imagen: "assets/img/productos/rubor-major-headlines-double-patrick-ta-original-she-s-blushing-mvk3bo5j.jpg" },
+      { nombre: "She´s That Girl", hex: "#fdaab6", stock: 1, imagen: "assets/img/productos/rubor-major-headlines-double-patrick-ta-original-she-s-that-girl-mvk3buyd.jpg" }
+    ]
+  },
+  {
     id: "fijador-de-maquillaje-naba",
     nombre: "Fijador de Maquillaje NABA",
     categoria: "Rostro",
