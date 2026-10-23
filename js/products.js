@@ -122,7 +122,7 @@ window.CHROMA_PRODUCTS = [
     tipo: "labial",
     precio: 39500,
     etiqueta: "Nuevo",
-    descripcion: "Diseñada especialmente para llevar tu cabello con un estilo impecable, además de ayudar a controlar el frizz, nutrir, reparar y mejorar su textura, gracias a sus ingredientes de alto desempeño. Espectacular fragancia que perdura. Innovadora presentación en stick para facilitar la aplicación sin desperdiciar producto ni dejar residuos en tu cabello.\n\nIdeal para: cabellos con frizz, rebeldes o que n",
+    descripcion: "Diseñada especialmente para llevar tu cabello con un estilo impecable, además de ayudar a controlar el frizz, nutrir, reparar y mejorar su textura, gracias a sus ingredientes de alto desempeño. Espectacular fragancia que perdura. Innovadora presentación en stick para facilitar la aplicación sin desperdiciar producto ni dejar residuos en tu cabello.",
     tonos: [
       { nombre: "Sin color", hex: "#ffaa00", stock: 1, imagen: "assets/img/productos/hair-wax-stick-cera-anti-frizz-tono-1-mvljp8gw.jpg" }
     ]
