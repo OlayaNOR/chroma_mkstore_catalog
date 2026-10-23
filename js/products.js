@@ -18,7 +18,7 @@
 window.CHROMA_PRODUCTS = [
   {
     id: "vibrant-blush-duo",
-    nombre: "VIBRANT BLUSH DUO",
+    nombre: "VIBRANT BLUSH DUO ENCHANTE",
     categoria: "Rostro",
     tipo: "labial",
     precio: 38000,
