@@ -17,6 +17,117 @@
    ========================================================= */
 window.CHROMA_PRODUCTS = [
   {
+    id: "vibrant-blush-duo",
+    nombre: "VIBRANT BLUSH DUO",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 38000,
+    etiqueta: "Nuevo",
+    descripcion: "Su formula cremosa se desliza fácilmente sobre la piel, proporcionando un acabado suave y húmedo que realza tu belleza natural.",
+    tonos: [
+      { nombre: "Rose Rush", hex: "#fe757b", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-rose-rush-mvlkd1tw.jpg" },
+      { nombre: "Peach Glow", hex: "#d95942", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-peach-glow-mvlkdizu.jpg" },
+      { nombre: "Glowing Glam", hex: "#eb726e", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-glowing-glam-mvlkdzc5.jpg" }
+    ]
+  },
+  {
+    id: "lip-gloss-1st-scene",
+    nombre: "LIP GLOSS 1ST SCENE",
+    categoria: "Labios",
+    tipo: "labial",
+    precio: 42000,
+    etiqueta: "Nuevo",
+    descripcion: "El Lip Gloss es un brillo labial que contiene aloe, aceite de jojoba y rosa mosqueta. Brinda un acabado ultra brillante, realzando tus labios con un toque luminoso, perfecto para cualquier look. Este gloss hidrata y suaviza tus labios, previene la sequedad y es de larga duración.",
+    tonos: [
+      { nombre: "Shell Coral", hex: "#aa594a", stock: 1, imagen: "assets/img/productos/lip-gloss-1st-scene-shell-coral-mvlk81ta.jpg" }
+    ]
+  },
+  {
+    id: "pincel-doble-cejas-b44",
+    nombre: "Pincel Doble Cejas B44",
+    categoria: "Brochas",
+    tipo: "labial",
+    precio: 12000,
+    etiqueta: "Nuevo",
+    descripcion: "Este pincel delgadito es de cerdas sintéticas y rígidas, diseñado especialmente para trazar mis cejas de una forma precisa y perfecta. Además, su punta otra punta es el complemento que necesito para dar los últimos toques. Así, mi mirada cobra mucha más fuerza sin dejar de verse natural. Por fin puedo explorar nuevas mezclas y estilos. Es hora de crear.",
+    tonos: [
+      { nombre: "B44", hex: "#000000", stock: 1, imagen: "assets/img/productos/pincel-doble-cejas-b44-b44-mvlk5zeo.jpg" }
+    ]
+  },
+  {
+    id: "paleta-light-set-montoc",
+    nombre: "Paleta Light Set Montoc",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 56000,
+    etiqueta: "Nuevo",
+    descripcion: "La paleta Light Set, reúne en un estuche compacto tres productos muy útiles para definir el rostro: bronceador, rubor e iluminador. viene en tres tonos versátiles: carlota, leticia y aurora,  que se adaptan fácilmente a diversos tonos de piel.",
+    tonos: [
+      { nombre: "Aurora", hex: "#ffffff", stock: 1, imagen: "assets/img/productos/paleta-light-set-montoc-tono-1-mvlk3i56.jpg" }
+    ]
+  },
+  {
+    id: "iluminador-light-set",
+    nombre: "Iluminador Light Set",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 44000,
+    etiqueta: "Nuevo",
+    descripcion: "El Light Set, es un iluminador compacto que le dará a tu maquillaje un toque de luminosidad inigualable.",
+    muestras: "assets/img/productos/iluminador-light-set-tonos-piel-mvlk1n8s.jpg",
+    tonos: [
+      { nombre: "Champagne", hex: "#f6ccba", stock: 1, imagen: "assets/img/productos/iluminador-light-set-tono-1-mvlk1k2d.jpg" }
+    ]
+  },
+  {
+    id: "polvo-suelto-traslucido-soft-powder-10g",
+    nombre: "Polvo Suelto Traslucido Soft Powder 10G",
+    categoria: "Rostro",
+    tipo: "labial",
+    precio: 37000,
+    etiqueta: "Nuevo",
+    descripcion: "¿Acabado perfecto durante todo el día? Powder Mini te encantará. Su fórmula micro-pulverizada se adhiere suavemente a la piel, matificando sin resecar y logrando un efecto aterciopelado que controla el brillo sin alterar el color de tu maquillaje.",
+    tonos: [
+      { nombre: "Traslucido", hex: "#fefcdd", stock: 1, imagen: "assets/img/productos/polvo-suelto-traslucido-soft-powder-10g-traslucido-mvlk03jp.jpg" }
+    ]
+  },
+  {
+    id: "pestanina-flash-lash",
+    nombre: "Pestañina Flash Lash",
+    categoria: "Ojos",
+    tipo: "labial",
+    precio: 24000,
+    etiqueta: "Nuevo",
+    descripcion: "Flash Lash está creada para ser resistente al agua con tecnología peel off, le dará a tu pestañas el largo perfecto.",
+    tonos: [
+      { nombre: "Flash-Lash", hex: "#f2d1d8", stock: 2, imagen: "assets/img/productos/pestanina-flash-lash-flash-lash-mvljv6q6.jpg" }
+    ]
+  },
+  {
+    id: "gel-fijador-de-cejas-freeze-babes",
+    nombre: "Gel Fijador De Cejas Freeze Babes",
+    categoria: "Cejas",
+    tipo: "labial",
+    precio: 22000,
+    etiqueta: "Nuevo",
+    descripcion: "El fijador de cejas perfecto para unas cejas congeladas. Con aceite de ricino y ácido hialurónico. Peina, define y mantiene cada vello en su lugar",
+    tonos: [
+      { nombre: "Sin color", hex: "#ffecd5", stock: 2, imagen: "assets/img/productos/gel-fijador-de-cejas-freeze-babes-sin-color-mvljtz33.jpg" }
+    ]
+  },
+  {
+    id: "hair-wax-stick-cera-anti-frizz",
+    nombre: "Hair Wax Stick (Cera Anti Frizz)",
+    categoria: "Capilar",
+    tipo: "labial",
+    precio: 39500,
+    etiqueta: "Nuevo",
+    descripcion: "Diseñada especialmente para llevar tu cabello con un estilo impecable, además de ayudar a controlar el frizz, nutrir, reparar y mejorar su textura, gracias a sus ingredientes de alto desempeño. Espectacular fragancia que perdura. Innovadora presentación en stick para facilitar la aplicación sin desperdiciar producto ni dejar residuos en tu cabello.\n\nIdeal para: cabellos con frizz, rebeldes o que n",
+    tonos: [
+      { nombre: "Sin color", hex: "#ffaa00", stock: 1, imagen: "assets/img/productos/hair-wax-stick-cera-anti-frizz-tono-1-mvljp8gw.jpg" }
+    ]
+  },
+  {
     id: "sephora-collection-retractable-eyebrow-pencil-waterproof",
     nombre: "SEPHORA COLLECTION  Retractable EyeBrow Pencil - Waterproof",
     categoria: "Cejas",
@@ -32,7 +143,7 @@ window.CHROMA_PRODUCTS = [
   {
     id: "makeup-by-mario-f4-dual-ended-foundation-and-face-brush",
     nombre: "MAKEUP BY MARIO  F4 Dual-Ended Foundation and Face Brush",
-    categoria: "Rostro",
+    categoria: "Brochas",
     tipo: "labial",
     precio: 180000,
     etiqueta: "Nuevo",
@@ -146,7 +257,7 @@ window.CHROMA_PRODUCTS = [
   {
     id: "brocha-mini-iconi-k-x-juanito",
     nombre: "Brocha Mini Iconi-K x Juanito",
-    categoria: "Rostro",
+    categoria: "Brochas",
     tipo: "labial",
     precio: 20000,
     etiqueta: "Nuevo",
@@ -187,7 +298,9 @@ window.CHROMA_PRODUCTS = [
     tonos: [
       { nombre: "Profesional Silicon Café", hex: "#6d3b3e", stock: 1, imagen: "assets/img/productos/pestanina-prosa-profesional-silicon-cafe-mvk2g701.jpg" },
       { nombre: "Maxi-Volumen Morada", hex: "#843ba5", stock: 1, imagen: "assets/img/productos/pestanina-prosa-maxi-volumen-morada-mvk2gkyi.jpg" },
-      { nombre: "Micro Fibras Gris Clara", hex: "#9e96a2", stock: 1, imagen: "assets/img/productos/pestanina-prosa-micro-fibras-gris-clara-mvk2gws7.jpg" }
+      { nombre: "Micro Fibras Gris Clara", hex: "#9e96a2", stock: 1, imagen: "assets/img/productos/pestanina-prosa-micro-fibras-gris-clara-mvk2gws7.jpg" },
+      { nombre: "Maxi-Volumen Silicon", hex: "#ff40ff", stock: 3, imagen: "assets/img/productos/pestanina-prosa-maxi-volumen-silicon-mvljr13t.jpg" },
+      { nombre: "Maxi-Volumen Borgoña", hex: "#831100", stock: 1 }
     ]
   },
   {
