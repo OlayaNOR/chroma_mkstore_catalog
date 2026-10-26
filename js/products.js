@@ -25,7 +25,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Nuevo",
     descripcion: "Su formula cremosa se desliza fácilmente sobre la piel, proporcionando un acabado suave y húmedo que realza tu belleza natural.",
     tonos: [
-      { nombre: "Rose Rush", hex: "#fe757b", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-rose-rush-mvlkd1tw.jpg" },
+      { nombre: "Rose Rush", hex: "#fe757b", stock: 0, imagen: "assets/img/productos/vibrant-blush-duo-rose-rush-mvlkd1tw.jpg" },
       { nombre: "Peach Glow", hex: "#d95942", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-peach-glow-mvlkdizu.jpg" },
       { nombre: "Glowing Glam", hex: "#eb726e", stock: 1, imagen: "assets/img/productos/vibrant-blush-duo-glowing-glam-mvlkdzc5.jpg" }
     ]
@@ -39,7 +39,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Nuevo",
     descripcion: "El Lip Gloss es un brillo labial que contiene aloe, aceite de jojoba y rosa mosqueta. Brinda un acabado ultra brillante, realzando tus labios con un toque luminoso, perfecto para cualquier look. Este gloss hidrata y suaviza tus labios, previene la sequedad y es de larga duración.",
     tonos: [
-      { nombre: "Shell Coral", hex: "#aa594a", stock: 1, imagen: "assets/img/productos/lip-gloss-1st-scene-shell-coral-mvlk81ta.jpg" }
+      { nombre: "Shell Coral", hex: "#aa594a", stock: 0, imagen: "assets/img/productos/lip-gloss-1st-scene-shell-coral-mvlk81ta.jpg" }
     ]
   },
   {
@@ -251,7 +251,7 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/fijador-de-maquillaje-naba-mvk2yj61.jpg",
     muestras: "assets/img/productos/fijador-de-maquillaje-naba-tonos-piel-mvk2z04q.jpg",
     tonos: [
-      { nombre: "30 ML", hex: "#C98A8E", stock: 1, imagen: "assets/img/productos/fijador-de-maquillaje-naba-30-ml-mvk2yend.jpg" }
+      { nombre: "30 ML", hex: "#C98A8E", stock: 0, imagen: "assets/img/productos/fijador-de-maquillaje-naba-30-ml-mvk2yend.jpg" }
     ]
   },
   {
@@ -300,7 +300,7 @@ window.CHROMA_PRODUCTS = [
       { nombre: "Maxi-Volumen Morada", hex: "#843ba5", stock: 1, imagen: "assets/img/productos/pestanina-prosa-maxi-volumen-morada-mvk2gkyi.jpg" },
       { nombre: "Micro Fibras Gris Clara", hex: "#9e96a2", stock: 1, imagen: "assets/img/productos/pestanina-prosa-micro-fibras-gris-clara-mvk2gws7.jpg" },
       { nombre: "Maxi-Volumen Silicon", hex: "#ff40ff", stock: 3, imagen: "assets/img/productos/pestanina-prosa-maxi-volumen-silicon-mvljr13t.jpg" },
-      { nombre: "Maxi-Volumen Borgoña", hex: "#831100", stock: 1 }
+      { nombre: "Maxi-Volumen Borgoña", hex: "#831100", stock: 0 }
     ]
   },
   {
