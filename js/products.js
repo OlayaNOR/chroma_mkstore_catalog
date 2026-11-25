@@ -51,7 +51,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Nuevo",
     descripcion: "Este pincel delgadito es de cerdas sintéticas y rígidas, diseñado especialmente para trazar mis cejas de una forma precisa y perfecta. Además, su punta otra punta es el complemento que necesito para dar los últimos toques. Así, mi mirada cobra mucha más fuerza sin dejar de verse natural. Por fin puedo explorar nuevas mezclas y estilos. Es hora de crear.",
     tonos: [
-      { nombre: "B44", hex: "#000000", stock: 1, imagen: "assets/img/productos/pincel-doble-cejas-b44-b44-mvlk5zeo.jpg" }
+      { nombre: "B44", hex: "#000000", stock: 2, imagen: "assets/img/productos/pincel-doble-cejas-b44-b44-mvlk5zeo.jpg" }
     ]
   },
   {
@@ -88,7 +88,7 @@ window.CHROMA_PRODUCTS = [
     etiqueta: "Nuevo",
     descripcion: "¿Acabado perfecto durante todo el día? Powder Mini te encantará. Su fórmula micro-pulverizada se adhiere suavemente a la piel, matificando sin resecar y logrando un efecto aterciopelado que controla el brillo sin alterar el color de tu maquillaje.",
     tonos: [
-      { nombre: "Traslucido", hex: "#fefcdd", stock: 1, imagen: "assets/img/productos/polvo-suelto-traslucido-soft-powder-10g-traslucido-mvlk03jp.jpg" }
+      { nombre: "Traslucido", hex: "#fefcdd", stock: 0, imagen: "assets/img/productos/polvo-suelto-traslucido-soft-powder-10g-traslucido-mvlk03jp.jpg" }
     ]
   },
   {
@@ -264,7 +264,7 @@ window.CHROMA_PRODUCTS = [
     descripcion: "Iconi-k Brush ¡Colaboración entre Ani-K Makeup y Juanito! Esta brocha versátil está diseñada para ofrecerte la máxima precisión y comodidad en tu rutina de maquillaje.\n\nTe permite aplicar productos en crema, líquidos y en polvo con facilidad y precisión. Las cerdas aseguran una distribución uniforme del producto mientras sin absorber mucho producto, lo que te permite lograr el acabado perfecto y e",
     imagen: "assets/img/productos/brocha-mini-iconi-k-x-juanito-mvk4g9fq.jpg",
     tonos: [
-      { nombre: "MINI", hex: "#C98A8E", stock: 1, imagen: "assets/img/productos/brocha-mini-iconi-k-x-juanito-mini-mvk4iaam.jpg" }
+      { nombre: "MINI", hex: "#C98A8E", stock: 0, imagen: "assets/img/productos/brocha-mini-iconi-k-x-juanito-mini-mvk4iaam.jpg" }
     ]
   },
   {
@@ -328,9 +328,9 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/producto-mvk22h6a.jpg",
     muestras: "assets/img/productos/corrector-pure-cover-tamano-regular-6-gr-tonos-piel-mvk24u8l.jpg",
     tonos: [
-      { nombre: "00. Winter", hex: "#e1bba6", stock: 1 },
-      { nombre: "01. Snow", hex: "#e2b595", stock: 1 },
-      { nombre: "05. Caramel", hex: "#a0663c", stock: 1 }
+      { nombre: "00. Winter", hex: "#e1bba6", stock: 0 },
+      { nombre: "01. Snow", hex: "#e2b595", stock: 0 },
+      { nombre: "05. Caramel", hex: "#a0663c", stock: 0 }
     ]
   },
   {
