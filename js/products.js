@@ -215,7 +215,7 @@ window.CHROMA_PRODUCTS = [
     imagen: "assets/img/productos/producto-mvk3jhsl.jpg",
     muestras: "assets/img/productos/producto-tonos-piel-mvk3jdmw.jpg",
     tonos: [
-      { nombre: "Pound Cake", hex: "#f0d6b8", stock: 1, imagen: "assets/img/productos/huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m-pound-cake-mvk3ktr6.jpg" },
+      { nombre: "Pound Cake", hex: "#f0d6b8", stock: 0, imagen: "assets/img/productos/huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m-pound-cake-mvk3ktr6.jpg" },
       { nombre: "UBE Birthday Cake", hex: "#e49ec0", stock: 1, imagen: "assets/img/productos/huda-beauty-easy-bake-blurring-loose-baking-setting-powder-m-ube-birthday-cake-mvk3ldgh.jpg" }
     ]
   },
